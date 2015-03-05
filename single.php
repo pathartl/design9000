@@ -1,0 +1,50 @@
+<?php
+/**
+ * @package WordPress
+ * @subpackage Blankfolio
+ * @since Blankfolio 1.0
+ */
+
+get_header(); ?>
+
+		<div id="content-container">
+			<div id="content" role="content-box">
+
+			<?php if ( have_posts() ) while ( have_posts() ) : the_post(); ?>
+
+				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<h1 class="entry-title"><?php the_title(); ?></h1>
+					
+					
+					<div class="entry-meta">
+						<?php blankfolio_posted_on(); ?> 
+						<?php edit_post_link( __( 'Edit', 'blankfolio' ), '<span class="meta-sep">|</span> <span class="edit-link">', '</span>' ); ?>
+					</div><!-- .entry-meta -->
+
+						<?php the_post_thumbnail('single'); ?>
+
+					<div class="entry-content">
+						<?php the_content(); ?>
+						<?php wp_link_pages( array( 'before' => '<div class="page-link">' . __( 'Pages:', 'blankfolio' ), 'after' => '</div>' ) ); ?>
+					</div><!-- .entry-content -->
+
+					<div class="entry-info">
+						<?php blankfolio_posted_in(); ?>
+						<?php edit_post_link( __( 'Edit', 'blankfolio' ), '<span class="edit-link">', '</span>' ); ?>
+					</div><!-- .entry-info -->
+				</div><!-- #post-## -->
+
+				<div id="nav-below" class="navigation">
+					<div class="nav-previous"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'blankfolio' ) . '</span> %title' ); ?></div>
+					<div class="nav-next"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'blankfolio' ) . '</span>' ); ?></div>
+				</div><!-- #nav-below -->
+
+				<?php comments_template( '', true ); ?>
+
+			<?php endwhile; // end of the loop. ?>
+
+			</div><!-- #content -->
+		</div><!-- #content-container -->
+
+<?php get_sidebar(); ?>
+<?php get_footer(); ?>
